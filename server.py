@@ -27,7 +27,7 @@ def generate_video():
 
     # Check if video was created
     if os.path.exists(output_file):
-        return jsonify({"video_url": f"http://your-server.com/videos/{video_id}"})
+        return jsonify({"video_url": f"http://127.0.0.1:6000/videos/{video_id}"})
     else:
         return jsonify({"error": "Video generation failed"}), 500
 
