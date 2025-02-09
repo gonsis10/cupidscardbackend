@@ -4,7 +4,7 @@ from textwrap import fill
 def create_intro(title):
     image = Image.open("./assets/template.png")
     d = ImageDraw.Draw(image)
-    font = ImageFont.truetype("./main/TMSans.ttf", 45)
+    font = ImageFont.truetype("TMSans.ttf", 45)
     text = title
     wrapped_text = fill(text, width=40)
     text_pos = (120, 925)

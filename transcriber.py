@@ -20,9 +20,9 @@ def transcribe_audio_to_text():
     )
     speech_to_text.set_service_url('https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/36d439b8-5a01-49ab-984b-724ee587499a')
     
-    title_length = get_title_length("./temp/title_sped.mp3")
+    title_length = get_title_length("audio/greeting.mp3")
 
-    with open("./temp/content_sped.mp3", "rb") as audio_file:
+    with open("audio/content.mp3", "rb") as audio_file:
         response = speech_to_text.recognize(
             audio=audio_file,
             content_type="audio/mp3",
