@@ -61,4 +61,4 @@ if __name__ == "__main__":
     
     create_video(full_message)
     upload_video(video_id)
-    # clean_up()
+    clean_up()
