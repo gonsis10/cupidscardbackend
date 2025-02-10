@@ -18,13 +18,15 @@ def get_title_length(file_path):
     return float(result.stdout)
 
 def transcribe_audio_to_text():
-    authenticator = IAMAuthenticator(os.getenv("IAM_API"), verify=certifi.where())
+    authenticator = IAMAuthenticator(os.getenv("IAM_API"))
     speech_to_text = SpeechToTextV1(
         authenticator=authenticator
     )
     speech_to_text.set_service_url(os.getenv("IAM_SERVICE_URL"))
     
     title_length = get_title_length("audio/greeting.mp3")
+    
+    speech_to_text.http_client.verify = certifi.where()
 
     with open("audio/content.mp3", "rb") as audio_file:
         response = speech_to_text.recognize(
