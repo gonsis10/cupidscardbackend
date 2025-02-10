@@ -50,6 +50,6 @@ def compose_video(words, intro_length):
         codec="libx264",  # Use libx264 for better compatibility
         audio_codec="aac",  # Ensure audio is encoded properly
         threads=12,
-        bitrate="8000k"
+        bitrate="6000k"
     )
 

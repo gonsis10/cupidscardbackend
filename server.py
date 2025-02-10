@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import sys
 import subprocess
 import uuid
 import os
@@ -7,29 +8,35 @@ import os
 app = Flask(__name__)
 CORS(app)  # Allows frontend to communicate with backend
 
-# Directory to store generated videos
-VIDEO_DIR = "videos"
-os.makedirs(VIDEO_DIR, exist_ok=True)
-
 @app.route("/generate_video", methods=["POST"])
 def generate_video():
+    BUCKET_NAME = "cupidscard"
     data = request.get_json()
+
+    # Extract message, recipient, and sender safely
+    recipient = data.get("recipient", "Unknown Recipient")
+    sender = data.get("sender", "Anonymous")
     message = data.get("message", "")
-    recipient = data.get("recipient", "")
-    sender = data.get("sender", "")
+
+    # Format the full message
+    full_message = f"Dear: {recipient}\n\n{message}\n\nLove: {sender}"
 
     # Create a unique video filename
     video_id = str(uuid.uuid4()) + ".mp4"
-    output_file = os.path.join(VIDEO_DIR, video_id)
 
-    # Call your existing Python script (modify this to match your script's format)
-    subprocess.run(["python", "main.py", message, output_file])
+    # Run video generation asynchronously using `subprocess.Popen`
+    try:  
+        python_executable = sys.executable 
+        process = subprocess.Popen([python_executable, "main.py", full_message, video_id])
+    except Exception as e:
+        return jsonify({"error": f"Video generation failed: {str(e)}"}), 500
 
-    # Check if video was created
-    if os.path.exists(output_file):
-        return jsonify({"video_url": f"http://127.0.0.1:6000/videos/{video_id}"})
-    else:
-        return jsonify({"error": "Video generation failed"}), 500
+    # Respond immediately while the video is being processed
+    return jsonify({
+        "message": "Video generation started",
+        "video_id": video_id,
+        "video_url": f"https://{BUCKET_NAME}.s3.amazonaws.com/{video_id}"
+    })
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6000, debug=True)
+    app.run(host="0.0.0.0", port=8000, debug=True)
