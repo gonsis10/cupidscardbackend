@@ -6,8 +6,8 @@ from video_setup import setup_background
 
 def create_text_clip(txt, start_time, end_time, fontsize=60, pos=('center', 'center')):
     wrapped_text = fill(txt, width=80)
-    text_clip_outline = mp.TextClip(wrapped_text, fontsize=fontsize, color="black", font="Arial-Bold", stroke_color="black", stroke_width=2)
-    text_clip = mp.TextClip(wrapped_text, fontsize=fontsize, color='white', font="Arial-Bold")
+    text_clip_outline = mp.TextClip(wrapped_text, fontsize=fontsize, color="black", font="Arial-Bold", stroke_color="black", stroke_width=2, method="caption")
+    text_clip = mp.TextClip(wrapped_text, fontsize=fontsize, color='white', font="Arial-Bold", method="caption")
     composite_clip = mp.CompositeVideoClip([text_clip_outline, text_clip])
     return composite_clip.set_start(start_time).set_duration(max(0, end_time - start_time)).set_position(pos)
 
