@@ -3,6 +3,7 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 import subprocess
 from dotenv import load_dotenv
 import os
+import certifi
 
 load_dotenv()
 
@@ -17,7 +18,7 @@ def get_title_length(file_path):
     return float(result.stdout)
 
 def transcribe_audio_to_text():
-    authenticator = IAMAuthenticator(os.getenv("IAM_API"))
+    authenticator = IAMAuthenticator(os.getenv("IAM_API"), verify=certifi.where())
     speech_to_text = SpeechToTextV1(
         authenticator=authenticator
     )
