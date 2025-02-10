@@ -39,6 +39,8 @@ def create_audio(greeting, content):
         voice = bob
     )
     
+    os.makedirs("audio", exist_ok=True)
+    
     # play(audio)
     save(greeting_audio, "audio/greeting.mp3")
     save(content_audio, "audio/content.mp3")
