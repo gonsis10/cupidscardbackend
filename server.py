@@ -4,7 +4,6 @@ from flask_socketio import SocketIO
 import sys
 import subprocess
 import uuid
-import time
 
 app = Flask(__name__)
 CORS(app)  # Allows frontend to communicate with backend

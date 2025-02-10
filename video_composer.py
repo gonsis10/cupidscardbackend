@@ -16,12 +16,6 @@ def add_subtitles(words, intro_length, video_clip):
     
     clips = [video_clip]
     
-    # image_clip = mp.ImageClip("./temp/title_page.png").set_start(0).set_duration(intro_length)
-    # image_clip = image_clip.set_pos('center')
-    # image_clip = image_clip.resize(video_clip.size)
-    # clips.append(image_clip)
-    
-    
     for subtitle in subtitles:
         animated_text_clip = create_text_clip(
             subtitle["text"], 
