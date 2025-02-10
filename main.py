@@ -10,7 +10,7 @@ def create_video(full_message):
     os.makedirs("output", exist_ok=True)
     
     # status, title, content = choose_post() # CHANGE THIS TO JSON FILE
-    greeting = "Temp Title"
+    greeting = "Cupids Card!"
     # content = "What if you could play Cupid for a day and help random strangers find love? In this video, the host (you) goes around asking people if they want a personalized Valentine's Day match based on random/funny questions."
     
     print("1: Selected post, now creating audios")
