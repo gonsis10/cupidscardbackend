@@ -1,6 +1,10 @@
-from elevenlabs import play, Voice, VoiceSettings, save
+from dotenv import load_dotenv
+from elevenlabs import Voice, VoiceSettings, save
 from elevenlabs.client import ElevenLabs
 import subprocess
+import os
+
+load_dotenv()
 
 def speed_up_audio(input_file, output_file, speed_factor):
     command = [
@@ -14,7 +18,7 @@ def speed_up_audio(input_file, output_file, speed_factor):
 
 def create_audio(greeting, content):
     client = ElevenLabs(
-    api_key="sk_32334211b2bfce0b57fc583832a6cdeadb0a3180cbdb79fe", # Defaults to ELEVEN_API_KEY
+    api_key=os.getenv("ELEVENLABS"), # Defaults to ELEVEN_API_KEY
     )
 
     bob = Voice(

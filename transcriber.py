@@ -1,7 +1,10 @@
 from ibm_watson import SpeechToTextV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-import json
 import subprocess
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def get_title_length(file_path):
     """Get audio duration using ffprobe."""
@@ -14,11 +17,11 @@ def get_title_length(file_path):
     return float(result.stdout)
 
 def transcribe_audio_to_text():
-    authenticator = IAMAuthenticator('pyLdoDRm-_fxr9OrRgwLr_ZvBZoglpReBEnTd3tuUwFn')
+    authenticator = IAMAuthenticator(os.getenv("IAM_API"))
     speech_to_text = SpeechToTextV1(
         authenticator=authenticator
     )
-    speech_to_text.set_service_url('https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/36d439b8-5a01-49ab-984b-724ee587499a')
+    speech_to_text.set_service_url(os.getenv("IAM_SERVICE_URL"))
     
     title_length = get_title_length("audio/greeting.mp3")
 
